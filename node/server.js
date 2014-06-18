@@ -9,6 +9,11 @@ if (config.development) {
   app.use(morgan())
 }
 
+app.set('views', __dirname + '/../layouts')
+
+app.locals.assets = require('./assets')
+app.locals.config = config
+
 app.use(bodyParser())
 app.use(require('./controllers'))
 

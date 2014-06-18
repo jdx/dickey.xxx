@@ -1,8 +1,5 @@
-angular.module('xxx')
-  .controller('AdminCtrl', function ($scope, postsService, $window, authService) {
-    if (!authService.loggedIn) {
-      $window.location.href = '/github/auth'
-    }
+angular.module('admin')
+  .controller('PostsCtrl', function ($scope, postsService) {
     var reload = function () {
       postsService.fetch().success(function (posts) {
         $scope.posts = posts

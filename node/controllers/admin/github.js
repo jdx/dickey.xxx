@@ -1,27 +1,30 @@
 var app = require('express').Router()
 var url = require('url')
 var jwt = require('jwt-simple')
-var github = require('../../github')
+var github = require('../../services/github')
 var vasync = require('vasync')
+var config = require('../../config')
 
 app.get('/auth', function (req, res) {
   res.redirect(url.format({
     host: 'github.com',
     pathname: '/login/oauth/authorize',
     query: {
-      client_id: process.env.GITHUB_CLIENT_ID,
-      redirect_uri: process.env.GITHUB_REDIRECT_URI
+      client_id: config.github.clientId,
+      redirect_uri: config.github.redirectUri
     }
   }))
 })
 
 app.get('/auth/callback', function (req, res, next) {
+  var accessToken
   vasync.waterfall([
     function (callback) {
       github.getAccessToken(req.query.code, callback)
     },
-    function (accessToken, callback) {
-      github.user(accessToken, callback)
+    function (token, callback) {
+      accessToken = token
+      github.user(token, callback)
     }
   ], function (err, user) {
     if (err) { return next(err) }
@@ -30,8 +33,9 @@ app.get('/auth/callback', function (req, res, next) {
       pathname: '/admin',
       query: {
         jwt: jwt.encode({
-          github: user.login
-        }, process.env.SECRET_KEY)
+          github: user.login,
+          token: accessToken
+        }, config.secretKey)
       }
     }))
   })

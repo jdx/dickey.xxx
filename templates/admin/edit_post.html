@@ -1,0 +1,44 @@
+<div id='edit-post' class='row'>
+  <div class='col-md-6'>
+    <form role='form' ng-submit='save(post)'>
+      <h1>Editing {{post.title}}</h1>
+      <div class='form-group'>
+        <label>Title</label>
+        <input type='text' class='form-control' ng-model='post.title'/>
+      </div>
+      <div class='form-group'>
+        <label>Description</label>
+        <textarea class='form-control' ng-model='post.description'></textarea>
+      </div>
+      <div class='form-group'>
+        <label>Published Date</label>
+        <textarea class='form-control' ng-model='post.published'></textarea>
+      </div>
+      <div class='form-group'>
+        <label>URL</label>
+        <input type='url' class='form-control' ng-model='post.url'></input>
+      </div>
+      <div class='form-group'>
+        <label>Provider Name</label>
+        <input type='text' class='form-control' ng-model='post.provider.name'></input>
+      </div>
+      <div class='form-group'>
+        <label>Provider Display</label>
+        <input type='text' class='form-control' ng-model='post.provider.display'></input>
+      </div>
+      <div class='form-group'>
+        <label>Provider URL</label>
+        <input type='url' class='form-control' ng-model='post.provider.url'></input>
+      </div>
+      <input type='submit' value='Save' class='btn btn-lg btn-success btn-block'>
+      <br/>
+      <div ng-if='saved' class='alert alert-success'>
+        <strong>Great!</strong> All saved!
+      </div>
+    </form>
+  </div>
+  <div class='col-md-6'>
+    <h4><a href='#' ng-click='rawVisible = !rawVisible'>View Raw JSON</a></h4>
+    <pre class='raw-json' ng-show='rawVisible'>{{ post|json }}</pre>
+  </div>
+</div>

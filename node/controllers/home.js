@@ -13,7 +13,7 @@ var assets = function (base) {
 }
 
 app.get('/', function (req, res) {
-  res.render('../layout.html.ejs', {assets: assets, config: config})
+  res.render('home.html.ejs', {assets: assets, config: config})
 })
 
 module.exports = app

@@ -1,9 +1,9 @@
-var embedly = require('../../embedly')
+var embedly = require('../../../embedly')
 var vasync = require('vasync')
 var app = require('express').Router()
-var Post = require('../../models/post')
+var Post = require('../../../models/post')
 
-app.get('/posts', function (req, res, next) {
+app.get('/', function (req, res, next) {
   Post
   .find()
   .sort('-published')
@@ -13,31 +13,35 @@ app.get('/posts', function (req, res, next) {
   })
 })
 
-app.get('/posts/:id', function (req, res, next) {
+app.get('/:id', function (req, res, next) {
   Post.findById(req.params.id, function(err, post) {
     if (err) { return next(err) }
     res.json(post)
   })
 })
 
-app.post('/posts/:id/unpublish', function (req, res, next) {
-  if (!req.authenticated) { return res.send(401) }
+app.post('/:id/unpublish', function (req, res, next) {
   Post.findByIdAndUpdate(req.params.id, { $set: { published: null } }, function(err, post) {
     if (err) { next(err) }
     res.json(post)
   })
 })
 
-app.post('/posts/:id/publish', function (req, res, next) {
-  if (!req.authenticated) { return res.send(401) }
+app.post('/:id/publish', function (req, res, next) {
   Post.findByIdAndUpdate(req.params.id, { $set: { published: new Date() } }, function(err, post) {
     if (err) { next(err) }
     res.json(post)
   })
 })
 
-app.post('/posts', function (req, res, next) {
-  if (!req.authenticated) { return res.send(401) }
+app.put('/:id', function (req, res, next) {
+  Post.findByIdAndUpdate(req.params.id, { $set: req.body }, function (err, post) {
+    if (err) { return next(err) }
+    res.json(post)
+  })
+})
+
+app.post('/', function (req, res, next) {
   vasync.waterfall([
     function (callback) {
       Post.findOne({url: req.body.url}, callback)
@@ -55,7 +59,7 @@ app.post('/posts', function (req, res, next) {
         post.provider.name    = embedly.provider_name
         post.provider.display = embedly.provider_display
         post.provider.url     = embedly.provider_url
-        post.entities         = embedly.entities
+        post.entities         = embedly.entities.map(function (e) { return e.name })
         post.images           = embedly.images
         callback(null, post)
       })

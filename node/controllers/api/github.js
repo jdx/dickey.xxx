@@ -1,5 +1,5 @@
 var app = require('express').Router()
-var github = require('../../github')
+var github = require('../../services/github')
 var redis = require('../../redis')
 
 app.get('/github/events', function (req, res, next) {

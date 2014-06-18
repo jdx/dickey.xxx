@@ -8,6 +8,7 @@ app.get('/posts', function (req, res, next) {
   .sort('-published')
   .exec(function (err, posts) {
     if (err) { return next(err) }
+    res.setHeader('Cache-Control', 'public, max-age=3600')
     res.json(posts)
   })
 })

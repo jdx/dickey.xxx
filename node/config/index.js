@@ -6,7 +6,9 @@ var baseConfig = {
   env:         env,
   development: env === 'development',
   staging:     env === 'staging',
-  production:  env === 'production'
+  production:  env === 'production',
+  workerCount: process.env.WORKER_COUNT || 2,
+  assets: { rev: false }
 }
 
 var envConfig = require('./' + env)

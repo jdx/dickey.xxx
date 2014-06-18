@@ -4,7 +4,7 @@
   "scripts": {
     "test": "mocha",
     "postinstall": "gulp build",
-    "start": "node node/server.js"
+    "start": "node node/boot.js"
   },
   "engines": {
     "node": "0.10.x"

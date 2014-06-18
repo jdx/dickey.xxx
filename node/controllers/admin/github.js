@@ -1,7 +1,7 @@
 var app = require('express').Router()
 var url = require('url')
 var jwt = require('jwt-simple')
-var github = require('../github')
+var github = require('../../github')
 var vasync = require('vasync')
 
 app.get('/auth', function (req, res) {

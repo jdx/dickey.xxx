@@ -1,9 +1,15 @@
 var gulp = require('gulp')
 var nodemon = require('gulp-nodemon')
 
+var nodemonOpts = { script: 'node/server.js',
+                    ext: 'html js',
+                    ignore: ['ng*', 'gulp*', 'assets*'] }
+
 gulp.task('server', function () {
-  nodemon({ script: 'node/server.js',
-            ext: 'html js',
-            ignore: ['ng*', 'gulp*', 'node/public*'] })
-    .on('change', ['lint'])
+  nodemon(nodemonOpts)
+})
+
+gulp.task('server:prod', ['rev'], function () {
+  process.env.NODE_ENV = 'production'
+  nodemon(nodemonOpts)
 })

@@ -1,6 +1,6 @@
 var app = require('express').Router()
 
-app.use(require('./posts'))
 app.use(require('./github'))
+app.use(require('./posts'))
 
 module.exports = app

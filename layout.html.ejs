@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>dickeyxxx</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+  <script>
+    <% include vendor/angular.js/1.3.0-beta.8/angular-loader.min.js %>
+    <% include vendor/script.js/2.5.3/script.min.js %>
+    $script([
+      <% if (rev) { %>
+      '//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.0-beta.8/angular.min.js',
+      '<%- rev['xxx.js'] %>',
+      '<%- rev['xxx-templates.js'] %>'
+      <% } else { %>
+      '//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.0-beta.8/angular.js',
+      '/xxx.js',
+      '/xxx-templates.js'
+      <% } %>
+    ])
+  </script>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+  <% if (rev) { %>
+  <link rel="stylesheet" href="<%- rev['xxx.css'] %>">
+  <% } else { %>
+  <link rel="stylesheet" href="/xxx.css">
+  <% } %>
+</head>
+<body ng-app='xxx'>
+  <div id='header'>
+    <h1><a href='/' title='Jeff Dickey'>dickeyxxx</a></h1>
+    <div class='social'>
+      <a href='https://twitter.com/dickeyxxx' title='@dickeyxxx' class='twitter'><i class='fa fa-twitter'></i></a>
+      <a href='https://github.com/dickeyxxx' title='@dickeyxxx' class='github'><i class='fa fa-github'></i></a>
+      <a href='https://linkedin.com/in/dickeyxxx' title='@dickeyxxx' class='linkedin'><i class='fa fa-linkedin'></i></a>
+    </div>
+  </div>
+  <div id='posts_wrapper'>
+    <div class='container'>
+      <div class='row'>
+        <div class='col-md-12'>
+          <div id='posts' ng-controller='PostsCtrl' ng-cloak ng-include="'posts.html'"></div>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='col-md-6'>
+          <div id='github' ng-controller='GithubCtrl' ng-cloak ng-include="'github.html'"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class='container'>
+      <a href='https://twitter.com/dickeyxxx'>@dickeyxxx</a>
+    </div>
+  </footer>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-16475858-1', 'dickey.xxx');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

@@ -1,24 +1,17 @@
-var express = require('express')
+var app = require('express')()
 var morgan = require('morgan')
 var bodyParser = require('body-parser')
-var favicon = require('serve-favicon')
-var responseTime = require('response-time')
-var routes = require('./routes')
-var authentication = require('./authentication')
+var config = require('./config')
 
-var app = express()
-app.set('view engine', 'ejs')
-app.set('views', __dirname + '/../views')
-app.use(responseTime())
-app.use(favicon(__dirname + '/../public/favicon.ico'))
-app.use(morgan())
+if (config.development) {
+  app.use(morgan('dev')) // show colored, concise logs in dev
+} else {
+  app.use(morgan())
+}
+
 app.use(bodyParser())
-app.use(express.static(__dirname + '/../public'))
-app.use(authentication())
+app.use(require('./controllers'))
 
-app.use(routes)
-
-var port = process.env.PORT || 3000
-app.listen(port, function () {
-  console.log('listening on', port, 'with settings', app.settings)
+app.listen(config.port, function () {
+  console.log('[', config.env, ']', 'listening on', config.port)
 })

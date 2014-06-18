@@ -1,41 +1,45 @@
 var express = require('express')
 var app = express.Router()
 var vasync = require('vasync')
-var embedly = require('../embedly')
-var Post = require('../models/post')
+var embedly = require('../../embedly')
+var Post = require('../../models/post')
 
-app.get('/posts', function (req, res) {
+app.get('/posts', function (req, res, next) {
   Post.find({
     published: { $lte: new Date() }
-  }).sort('-published')
+  })
+  .sort('-published')
   .exec(function (err, posts) {
-    if (err) { throw err }
+    if (err) { return next(err) }
     res.json(posts)
   })
 })
 
-app.get('/posts/:id', function (req, res) {
+app.get('/posts/:id', function (req, res, next) {
   Post.findById(req.params.id, function(err, post) {
-    if (err) { throw err }
+    if (err) { return next(err) }
     res.json(post)
   })
 })
 
-app.post('/posts/:id/unpublish', function (req, res) {
+app.post('/posts/:id/unpublish', function (req, res, next) {
+  if (!req.authenticated) { return res.send(401) }
   Post.findByIdAndUpdate(req.params.id, { $set: { published: null } }, function(err, post) {
-    if (err) { throw err }
+    if (err) { next(err) }
     res.json(post)
   })
 })
 
-app.post('/posts/:id/publish', function (req, res) {
+app.post('/posts/:id/publish', function (req, res, next) {
+  if (!req.authenticated) { return res.send(401) }
   Post.findByIdAndUpdate(req.params.id, { $set: { published: new Date() } }, function(err, post) {
-    if (err) { throw err }
+    if (err) { next(err) }
     res.json(post)
   })
 })
 
-app.post('/posts', function (req, res) {
+app.post('/posts', function (req, res, next) {
+  if (!req.authenticated) { return res.send(401) }
   vasync.waterfall([
     function (callback) {
       Post.findOne({url: req.body.url}, callback)
@@ -62,7 +66,7 @@ app.post('/posts', function (req, res) {
       post.save(callback)
     }
   ], function (err, post) {
-    if (err) { throw err }
+    if (err) { return next(err) }
     res.json(post)
   })
 })

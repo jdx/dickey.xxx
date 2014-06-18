@@ -1,7 +1,7 @@
 var gulp = require('gulp')
 var nodemon = require('gulp-nodemon')
 
-var nodemonOpts = { script: 'node/server.js',
+var nodemonOpts = { script: 'node/boot.js',
                     ext: 'html js',
                     ignore: ['ng*', 'gulp*', 'assets*'] }
 

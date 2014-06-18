@@ -35,6 +35,7 @@ app.post('/:id/publish', function (req, res, next) {
 })
 
 app.put('/:id', function (req, res, next) {
+  delete req.body._id
   Post.findByIdAndUpdate(req.params.id, { $set: req.body }, function (err, post) {
     if (err) { return next(err) }
     res.json(post)

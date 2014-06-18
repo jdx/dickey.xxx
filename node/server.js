@@ -3,7 +3,6 @@ var morgan = require('morgan')
 var bodyParser = require('body-parser')
 var favicon = require('serve-favicon')
 var responseTime = require('response-time')
-var config = require('./config')
 var routes = require('./routes')
 var authentication = require('./authentication')
 
@@ -16,8 +15,6 @@ app.use(morgan())
 app.use(bodyParser())
 app.use(express.static(__dirname + '/../public'))
 app.use(authentication())
-
-app.locals.config = config
 
 app.use(routes)
 

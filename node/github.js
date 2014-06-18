@@ -1,13 +1,12 @@
 var request = require('request')
-var config = require('./config')
 
 exports.getAccessToken = function (code, callback) {
   request.post({
     url: 'https://github.com/login/oauth/access_token',
     json: true,
     body: {
-      client_id: config.github.clientId,
-      client_secret: config.github.clientSecret,
+      client_id: process.env.GITHUB_CLIENT_ID,
+      client_secret: process.env.GITHUB_CLIENT_SECRET,
       code: code
     }
   }, function(err, _, data) {

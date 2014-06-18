@@ -1,6 +1,5 @@
 var app = require('express').Router()
 var url = require('url')
-var config = require('../config')
 var jwt = require('jwt-simple')
 var github = require('../github')
 var vasync = require('vasync')
@@ -10,8 +9,8 @@ app.get('/auth', function (req, res) {
     host: 'github.com',
     pathname: '/login/oauth/authorize',
     query: {
-      client_id: config.github.clientId,
-      redirect_uri: config.github.redirect_uri
+      client_id: process.env.GITHUB_CLIENT_ID,
+      redirect_uri: process.env.GITHUB_REDIRECT_URI
     }
   }))
 })
@@ -32,7 +31,7 @@ app.get('/auth/callback', function (req, res, next) {
       query: {
         jwt: jwt.encode({
           github: user.login
-        }, config.secret)
+        }, process.env.SECRET_KEY)
       }
     }))
   })

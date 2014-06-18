@@ -1,0 +1,20 @@
+<ul class='list-unstyled'>
+  <li ng-repeat='post in posts'>
+    <p class='pull-right date'>{{post.published | date:'mediumDate'}}</p>
+    <a ng-href='{{post.url}}'>
+      <h3 class='title'>{{post.provider.name}}: {{post.title}}</h3>
+    </a>
+    <p class='pull-right' ng-repeat='entity in post.entities.slice(0,2)'>
+      <span class='label label-info'>
+        {{entity.name}}
+      </span>
+    </p>
+    <p class='description'>
+      {{post.description}}
+    </p>
+    <p>
+      <a ng-href='{{post.url}}'>Read more...</a>
+    </p>
+    <img class='img-responsive img-thumbnail' ng-src='{{post.images[0].url}}' />
+  </li>
+</ul>

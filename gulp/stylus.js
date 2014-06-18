@@ -7,6 +7,6 @@ gulp.task('build:css', function () {
     .pipe(gulp.dest('public'))
 })
 
-gulp.task('watch:css', function () {
+gulp.task('watch:css', ['build:css'], function () {
   gulp.watch('css/**/*', ['build:css'])
 })

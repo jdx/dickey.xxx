@@ -1,0 +1,27 @@
+<div ng-if='events.length'>
+  <h2>Recent Github Activity</h2>
+  <ul id='github' class='list-unstyled'>
+    <li ng-repeat='e in events' ng-switch='e.type'>
+      <div ng-switch-when='PushEvent'>
+        <a ng-href='https://github.com/{{e.repo.name}}'>
+          Pushed
+          <ng-pluralize count='e.payload.size'
+          when="{'one': '1 commit', 'other': '{} commits'}"></ng-pluralize>
+          to {{e.repo.name}}
+        </a>
+      </div>
+      <div ng-switch-when='PullRequestEvent'>
+        <a ng-href='{{e.payload.pull_request.html_url}}'>Opened pull request #{{e.payload.number}} on {{e.repo.name}}: {{e.payload.pull_request.title}}</a>
+      </div>
+      <div ng-switch-when='ForkEvent'>
+        <a ng-href='https://github.com/{{e.forkee.full_name}}'>Forked {{e.repo.name}}: {{e.payload.forkee.description}}</a>
+      </div>
+      <div ng-switch-when='CreateEvent'>
+        <a ng-href='https://github.com/{{e.repo.name}}'>Created repo {{e.repo.name}}</a>
+      </div>
+      <div ng-switch-when='IssueCommentEvent'>
+        <a ng-href='{{e.payload.issue.html_url}}'>Commented on issue #{{e.payload.issue.number}} on {{e.repo.name}}: {{e.payload.issue.title}}</a>
+      </div>
+    </li>
+  </ul>
+</div>

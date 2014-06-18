@@ -1,6 +1,6 @@
 var mongoose = require('mongoose')
 
-var uri = 'mongodb://localhost/xxx'
+var uri = process.env.MONGOHQ_URL || 'mongodb://localhost/xxx-dev'
 mongoose.connect(uri, function () {
   console.log('connected to', uri)
 })

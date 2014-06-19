@@ -42,6 +42,7 @@
     "lodash": "^2.4.1",
     "mongoose": "^3.8.12",
     "morgan": "^1.1.1",
+    "nodetime": "^0.8.15",
     "redis": "^0.10.3",
     "request": "^2.36.0",
     "vasync": "^1.5.0"

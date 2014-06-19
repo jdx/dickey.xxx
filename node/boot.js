@@ -1,3 +1,8 @@
+require('nodetime').profile({
+  accountKey: '259cc826069730270bcf0368f41a0b5b613afff8',
+  appName: 'dickey.xxx'
+});
+
 var cluster = require('cluster')
 var config = require('./config')
 

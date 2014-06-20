@@ -46,7 +46,7 @@ app.post('/', function (req, res, next) {
         post.provider.name    = embedly.provider_name
         post.provider.display = embedly.provider_display
         post.provider.url     = embedly.provider_url
-        post.entities         = embedly.entities.map(function (e) { return e.name })
+        post.entities         = embedly.entities
         post.images           = embedly.images
         callback(null, post)
       })

@@ -11,12 +11,6 @@ angular.module('admin')
       create: function (post) {
         return $http.post('/admin/api/posts', post)
       },
-      unpublish: function (id) {
-        return $http.post('/admin/api/posts/' + id + '/unpublish')
-      },
-      publish: function (id) {
-        return $http.post('/admin/api/posts/' + id + '/publish')
-      },
       update: function (post) {
         return $http.put('/admin/api/posts/' + post._id, post)
       }

@@ -20,20 +20,6 @@ app.get('/:id', function (req, res, next) {
   })
 })
 
-app.post('/:id/unpublish', function (req, res, next) {
-  Post.findByIdAndUpdate(req.params.id, { $set: { published: null } }, function(err, post) {
-    if (err) { next(err) }
-    res.json(post)
-  })
-})
-
-app.post('/:id/publish', function (req, res, next) {
-  Post.findByIdAndUpdate(req.params.id, { $set: { published: new Date() } }, function(err, post) {
-    if (err) { next(err) }
-    res.json(post)
-  })
-})
-
 app.put('/:id', function (req, res, next) {
   delete req.body._id
   Post.findByIdAndUpdate(req.params.id, { $set: req.body }, function (err, post) {

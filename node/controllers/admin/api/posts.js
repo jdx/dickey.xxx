@@ -1,5 +1,5 @@
 var embedly = require('../../../embedly')
-var vasync = require('vasync')
+var Q = require('q')
 var app = require('express').Router()
 var Post = require('../../../models/post')
 
@@ -29,35 +29,29 @@ app.put('/:id', function (req, res, next) {
 })
 
 app.post('/', function (req, res, next) {
-  vasync.waterfall([
-    function (callback) {
-      Post.findOne({url: req.body.url}, callback)
-    },
-    function (post, callback) {
-      callback(null, post || new Post({url: req.body.url}))
-    },
-    function (post, callback) {
-      embedly.extract(post.url, function (err, embedly) {
-        if (err) { return callback(err) }
-        post.title            = embedly.title
-        post.description      = embedly.description
-        post.type             = embedly.type
-        post.published        = embedly.published || new Date()
-        post.provider.name    = embedly.provider_name
-        post.provider.display = embedly.provider_display
-        post.provider.url     = embedly.provider_url
-        post.entities         = embedly.entities
-        post.images           = embedly.images
-        callback(null, post)
-      })
-    },
-    function (post, callback) {
-      post.save(callback)
-    }
-  ], function (err, post) {
-    if (err) { return next(err) }
+  var post = new Post({url: req.body.url})
+  Q.ninvoke(Post, 'findOne', {url: req.body.url})
+  .then(function (p) {
+      if (p) { post = p }
+      return embedly.extract(post.url)
+  })
+  .then(function (embedly) {
+    post.title            = embedly.title
+    post.description      = embedly.description
+    post.type             = embedly.type
+    post.published        = embedly.published || new Date()
+    post.provider.name    = embedly.provider_name
+    post.provider.display = embedly.provider_display
+    post.provider.url     = embedly.provider_url
+    post.entities         = embedly.entities
+    post.images           = embedly.images
+    return Q.ninvoke(post, 'save')
+  })
+  .then(function (post) {
     res.json(post)
   })
+  .catch(function (err) { next(err) })
+  .done()
 })
 
 

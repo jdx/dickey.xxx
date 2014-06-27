@@ -10,6 +10,12 @@
           to {{e.repo.name}}
         </a>
       </div>
+      <div ng-switch-when='PublicEvent'>
+        <a ng-href='https://github.com/{{e.repo.name}}'>Open sourced {{e.repo.name}}</a>
+      </div>
+      <div ng-switch-when='GollumEvent'>
+        <a ng-href='{{e.payload.pages[0].html_url}}'>Edited wiki article {{e.payload.pages[0].page_name}} on {{e.repo.name}}</a>
+      </div>
       <div ng-switch-when='PullRequestEvent'>
         <a ng-href='{{e.payload.pull_request.html_url}}'>Opened pull request #{{e.payload.number}} on {{e.repo.name}}: {{e.payload.pull_request.title}}</a>
       </div>

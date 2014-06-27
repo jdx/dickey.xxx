@@ -20,3 +20,5 @@ app.use(require('./controllers'))
 app.listen(config.port, function () {
   console.log('[', config.env, ']', 'listening on', config.port)
 })
+
+module.exports = app

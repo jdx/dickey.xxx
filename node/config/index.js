@@ -5,6 +5,7 @@ var baseConfig = {
   port:        process.env.PORT || 3000,
   env:         env,
   development: env === 'development',
+  test:        env === 'test',
   staging:     env === 'staging',
   production:  env === 'production',
   workerCount: process.env.WORKER_COUNT || 2,

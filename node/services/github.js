@@ -1,4 +1,5 @@
 var request = require('request')
+var _ = require('lodash')
 var Q = require('q')
 
 exports.getAccessToken = function (code) {
@@ -31,7 +32,13 @@ exports.user = function (accessToken) {
   return deferred.promise
 }
 
-exports.fetchPublicEventsFor = function (username) {
+function uniqueify (events) {
+  return _.uniq(events, function (event) {
+    return event.type + event.repo.id
+  })
+}
+
+exports.fetchPublicEventsFor = function fetchPublicEventsFor(username) {
   var deferred = Q.defer()
   request.get({
     url: 'https://api.github.com/users/' + username + '/events/public',
@@ -39,7 +46,7 @@ exports.fetchPublicEventsFor = function (username) {
     headers: { 'User-Agent': 'xxx' }
   }, function (err, _, events) {
     if (err) { return deferred.reject(err) }
-    deferred.resolve(events)
+    deferred.resolve(uniqueify(events))
   })
   return deferred.promise
 }

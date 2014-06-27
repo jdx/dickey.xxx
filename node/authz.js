@@ -16,7 +16,7 @@ module.exports = function (admin) {
 
 module.exports.requireAdmin = function() {
   return function (req, res, next) {
-    if (!req.admin) { return res.redirect('/admin') }
+    if (!req.admin) { return res.send(401) }
     next()
   }
 }

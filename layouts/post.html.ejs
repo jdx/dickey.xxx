@@ -1,16 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>dickeyxxx</title>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="<%- assets('xxx.css') %>">
-</head>
-<body ng-app='xxx'>
-  <%- include partials/header.html.ejs %>
+<%- include partials/start.html.ejs %>
   <div id='posts_wrapper'>
     <div class='container'>
       <div class='row'>
@@ -20,10 +8,4 @@
       </div>
     </div>
   </div>
-  <%- include partials/footer.html.ejs %>
-  <%- include partials/angular.html.ejs %>
-  <script src='<%- assets('xxx.js') %>'></script>
-  <script src='<%- assets('xxx-templates.js') %>'></script>
-  <%- include partials/google_analytics.html.ejs %>
-</body>
-</html>
+<%- include partials/end.html.ejs %>

@@ -12,9 +12,9 @@ var baseConfig = {
   assets:      { rev: false },
   secretKey:   process.env.SECRET_KEY || '12345',
   github: {
-    redirectUri: process.env.GITHUB_REDIRECT_URI,
-    clientId:    process.env.GITHUB_CLIENT_ID,
-    secretKey:   process.env.GITHUB_SECRET_KEY
+    redirectUri:  process.env.GITHUB_REDIRECT_URI,
+    clientId:     process.env.GITHUB_CLIENT_ID,
+    clientSecret: process.env.GITHUB_CLIENT_SECRET
   }
 }
 

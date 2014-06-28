@@ -15,19 +15,13 @@
     <div class='container'>
       <div class='row'>
         <div class='col-md-12'>
-          <div id='posts' ng-controller='PostsCtrl' ng-cloak ng-include="'posts.html'"></div>
-        </div>
-      </div>
-      <div class='row'>
-        <div class='col-md-6'>
-          <div id='github' ng-controller='GithubCtrl' ng-cloak ng-include="'github.html'"></div>
+          <div id='post' ng-controller='PostCtrl' ng-cloak ng-include="'post.html'"></div>
         </div>
       </div>
     </div>
   </div>
   <%- include partials/footer.html.ejs %>
   <%- include partials/angular.html.ejs %>
-  <script src='//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js'></script>
   <script src='<%- assets('xxx.js') %>'></script>
   <script src='<%- assets('xxx-templates.js') %>'></script>
   <%- include partials/google_analytics.html.ejs %>

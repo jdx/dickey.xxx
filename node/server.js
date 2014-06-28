@@ -14,7 +14,7 @@ app.set('views', __dirname + '/../layouts')
 app.locals.assets = require('./assets')
 app.locals.config = config
 
-app.use(bodyParser())
+app.use(bodyParser.json())
 app.use(require('./controllers'))
 
 app.listen(config.port, function () {

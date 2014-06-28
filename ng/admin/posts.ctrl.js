@@ -1,7 +1,7 @@
 angular.module('admin')
-  .controller('PostsCtrl', function ($scope, postsService) {
+  .controller('PostsCtrl', function ($scope, PostsSvc) {
     var reload = function () {
-      postsService.fetch().success(function (posts) {
+      PostsSvc.fetch().success(function (posts) {
         $scope.posts = posts
       })
     }
@@ -10,7 +10,7 @@ angular.module('admin')
 
     $scope.newPost = {}
     $scope.create = function (post) {
-      postsService.create(post).success(function () {
+      PostsSvc.create(post).success(function () {
         reload()
         $scope.newPost = {}
       })

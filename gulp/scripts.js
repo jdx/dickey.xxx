@@ -1,6 +1,9 @@
-var gulp = require('gulp')
-var concat = require('gulp-concat')
-var jshint = require('gulp-jshint')
+var gulp       = require('gulp')
+var concat     = require('gulp-concat')
+var jshint     = require('gulp-jshint')
+var uglify     = require('gulp-uglify')
+var sourcemaps = require('gulp-sourcemaps')
+var ngAnnotate = require('gulp-ng-annotate')
 
 var lintable = ['**/*.js', '!node_modules/**', '!assets/**']
 gulp.task('lint', function () {
@@ -10,7 +13,11 @@ gulp.task('lint', function () {
 
 gulp.task('concat:xxx:js', function () {
   return gulp.src(['ng/xxx/module.js', 'ng/xxx/**/*.js'])
-    .pipe(concat('xxx.js'))
+    .pipe(sourcemaps.init())
+      .pipe(concat('xxx.js'))
+      .pipe(ngAnnotate())
+      .pipe(uglify())
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest('assets'))
 })
 

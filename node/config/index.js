@@ -10,12 +10,7 @@ var baseConfig = {
   production:  env === 'production',
   workerCount: process.env.WORKER_COUNT || 2,
   assets:      { rev: false },
-  secretKey:   process.env.SECRET_KEY || '12345',
-  github: {
-    redirectUri:  process.env.GITHUB_REDIRECT_URI,
-    clientId:     process.env.GITHUB_CLIENT_ID,
-    clientSecret: process.env.GITHUB_CLIENT_SECRET
-  }
+  secretKey:   process.env.SECRET_KEY || '12345'
 }
 
 var envConfig = require('./' + env)

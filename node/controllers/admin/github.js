@@ -9,8 +9,8 @@ app.get('/auth', function (req, res) {
     host: 'github.com',
     pathname: '/login/oauth/authorize',
     query: {
-      client_id: config.github.clientId,
-      redirect_uri: config.github.redirectUri
+      client_id: process.env.GITHUB_CLIENT_ID,
+      redirect_uri: process.env.GITHUB_REDIRECT_URI
     }
   }))
 })

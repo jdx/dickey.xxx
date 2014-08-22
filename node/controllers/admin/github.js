@@ -1,6 +1,6 @@
 var app = require('express').Router()
 var url = require('url')
-var jwt = require('jwt-simple')
+var jwt = require('jsonwebtoken')
 var github = require('../../services/github')
 var config = require('../../config')
 
@@ -27,7 +27,7 @@ app.get('/auth/callback', function (req, res, next) {
       url.format({
       pathname: '/admin',
       query: {
-        jwt: jwt.encode({
+        jwt: jwt.sign({
           github: user.login,
           token: accessToken
         }, config.secretKey)

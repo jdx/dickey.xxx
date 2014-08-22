@@ -1,4 +1,4 @@
-var jwt = require('jwt-simple')
+var jwt = require('jsonwebtoken')
 var config = require('./config')
 
 module.exports = function (admin) {
@@ -10,7 +10,7 @@ module.exports = function (admin) {
       req.auth = jwt.decode(token, config.secretKey)
       req.admin = req.auth.github === admin
     }
-    return next()
+    next()
   }
 }
 

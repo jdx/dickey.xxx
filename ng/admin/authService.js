@@ -6,7 +6,9 @@ angular.module('admin')
     }
     var jwt = $window.localStorage.dickeyxxx_token
     var authheader = 'Bearer ' + jwt
-    $http.defaults.headers.common.Authorization = authheader
+    if (isLoggedIn) {
+      $http.defaults.headers.common.Authorization = authheader
+    }
     return {
       jwt: jwt,
       authheader: authheader,

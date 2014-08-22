@@ -1,6 +1,8 @@
 var request = require('request')
 var Q = require('q')
 
+if (!process.env.EMBEDLY_KEY) throw 'EMBEDLY_KEY undefined!'
+
 exports.extract = function (postUrl) {
   var deferred = Q.defer()
   request.get({

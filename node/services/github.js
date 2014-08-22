@@ -1,13 +1,15 @@
 var request = require('request')
 var _ = require('lodash')
 var Q = require('q')
-var config = require('../config')
 var get  = Q.denodeify(request.get)
 var post = Q.denodeify(request.post)
 
+if (!process.env.GITHUB_CLIENT_ID)  throw 'GITHUB_CLIENT_ID not set!'
+if (!process.env.GITHUB_SECRET_KEY) throw 'GITHUB_SECRET_KEY not set!'
+
 var creds = {
-  client_id: config.github.clientId,
-  client_secret: config.github.clientSecret
+  client_id: process.env.GITHUB_CLIENT_ID,
+  client_secret: process.env.GITHUB_SECRET_KEY
 }
 
 exports.getAccessToken = function (code) {
@@ -16,8 +18,8 @@ exports.getAccessToken = function (code) {
     url: 'https://github.com/login/oauth/access_token',
     json: true,
     body: {
-      client_id: process.env.GITHUB_CLIENT_ID,
-      client_secret: process.env.GITHUB_CLIENT_SECRET,
+      client_id: creds.client_id,
+      client_secret: creds.client_secret,
       code: code
     }
   }, function(err, _, data) {

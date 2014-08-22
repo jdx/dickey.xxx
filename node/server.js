@@ -6,7 +6,7 @@ var config = require('./config')
 if (config.development) {
   app.use(morgan('dev')) // show colored, concise logs in dev
 } else {
-  app.use(morgan())
+  app.use(morgan('short'))
 }
 
 app.set('views', __dirname + '/../layouts')

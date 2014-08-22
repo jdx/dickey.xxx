@@ -44,5 +44,8 @@
     "redis": "^0.12.1",
     "request": "^2.40.0",
     "should": "^4.0.4"
+  },
+  "devDependencies": {
+    "supertest": "^0.13.0"
   }
 }

@@ -1,1 +1,9 @@
-{}
+{
+  "engines": {
+    "iojs": "2.x"
+  },
+  "dependencies": {
+    "koa": "^0.20.0",
+    "koa-morgan": "^0.2.1"
+  }
+}

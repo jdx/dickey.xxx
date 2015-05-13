@@ -1,8 +1,12 @@
-var http = require('http');
+'use strict';
+var koa    = require('koa');
+var morgan = require('koa-morgan');
+var app    = koa();
 
-var server = http.createServer(function(req, res) {
-  res.writeHead(302, {'Location': 'https://medium.com/@dickeyxxx'});
-  res.end();
+app.use(morgan.middleware('combined'));
+
+app.use(function* () {
+  this.redirect('https://medium.com/@dickeyxxx');
 });
 
-server.listen(process.env.PORT || 8080);
+app.listen(process.env.PORT || 8080);

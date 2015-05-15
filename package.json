@@ -4,6 +4,7 @@
   },
   "dependencies": {
     "koa": "^0.20.0",
-    "koa-morgan": "^0.2.1"
+    "koa-morgan": "^0.2.1",
+    "koa-static": "^1.4.9"
   }
 }

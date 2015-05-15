@@ -5,6 +5,8 @@ var app    = koa();
 
 app.use(morgan.middleware('combined'));
 
+app.use(require('koa-static')('./public'));
+
 app.use(function* () {
   this.redirect('https://medium.com/@dickeyxxx');
 });
